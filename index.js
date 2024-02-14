@@ -5,22 +5,25 @@ const mongoose = require('mongoose');
 const app = express();
 // Using Node.js `require()`
 
-
+app.use(express.json());
 //route
 app.get('/',(req,res) => {
     res.send("Hello client API")
+})
+
+
+app.post('/product', (req,res) =>{
+    console.log(req.body);
+    res.send(req.body);
 })
 
 //route
 app.get('/blog',(req,res) => {
     res.send("Hello blog client API")
 })
-var My_URl = "mongodb+srv://admin:admin@jimmymongo.g6j5tzh.mongodb.net/?retryWrites=true&w=majority";
-My_URl = process.env.DATABASE_URL
-console.log(process.env.NAME);
-console.log(process.env.PROFESSION);
-console.log(process.env.DATABASE_URL);
+var My_URl = process.env.DATABASE_URL
 
+//mongoose settings
 mongoose.set("strictQuery",false);
  mongoose.connect(My_URl,
  { 
