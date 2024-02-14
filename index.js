@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+const Product  = require('./models/productModel');
 
 const app = express();
 // Using Node.js `require()`
@@ -12,9 +12,16 @@ app.get('/',(req,res) => {
 })
 
 
-app.post('/product', (req,res) =>{
-    console.log(req.body);
-    res.send(req.body);
+app.post('/product', async(req,res) =>{
+        try {
+            const product = await Product.create(req.body);
+            res.status(200).json(product);
+
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({message: error.message});
+            
+        }
 })
 
 //route
